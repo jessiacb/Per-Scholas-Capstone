@@ -16,11 +16,13 @@ React: For building dynamic and interactive user interfaces.
 React Router: For managing navigation and routing.
 CSS: For styling and layout.
 Bootstrap: For additional styling and responsiveness.
+
 Backend
 Node.js: For server-side logic.
 Express.js: For creating RESTful API routes.
 MongoDB: For database management.
 Mongoose: For schema modeling and database interactions.
+
 APIs
 Pokémon API: For fetching Pokémon details such as names, types, stats, and images.
 Pages and Views
@@ -36,6 +38,7 @@ Follow these steps to set up and run the project locally:
 1. Clone the Repository
 git clone <repository-url>
 cd <repository-folder>
+
 2. Install Dependencies
 Navigate to the server and client folders and install the required dependencies:
 
