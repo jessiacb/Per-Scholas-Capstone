@@ -1,12 +1,10 @@
 import React from "react";
 
-const Home = () => {
-  return (
-    <div>
-      <h1>Welcome to Pokémon Trainer Hub</h1>
-      <p>Track your favorite Pokémon, build teams, and simulate battles!</p>
-    </div>
-  );
-};
-
+const Home = () => (
+  <div className="text-center">
+    <h1>Welcome to the Pokémon Trainer Hub!</h1>
+    <p>Start building your Pokémon teams and explore the world of Pokémon.</p>
+  </div>
+);
 export default Home;
+
