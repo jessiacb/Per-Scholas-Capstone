@@ -5,6 +5,7 @@ import TeamBuilder from "./pages/TeamBuilder";
 import AvailablePokemon from "./pages/AvailablePokemon";
 import MyTeams from "./pages/MyTeams";
 import "./App.css";
+import "./styles.css";
 
 
 function App() {
