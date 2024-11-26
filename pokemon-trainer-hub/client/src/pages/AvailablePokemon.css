@@ -46,4 +46,9 @@
     list-style: none;
     margin: 0;
   }
+  .pokemon-image {
+    width: 100px;
+    height: 100px;
+    margin: 10px 0;
+  }
   
