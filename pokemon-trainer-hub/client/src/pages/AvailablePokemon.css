@@ -17,13 +17,19 @@
   }
   
   .pokemon-card {
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    width: 250px;
-    text-align: center; /* Center text within the card */
+    background: white; /* White background for better readability */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for a floating effect */
+    padding: 20px; /* Space inside the card */
+    width: 250px; /* Fixed width for consistent sizing */
+    text-align: center; /* Center text and content */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover effect */
+  }
+  
+  .pokemon-card:hover {
+    transform: translateY(-5px); /* Slightly lift the card on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhance the shadow on hover */
   }
   
   .pokemon-card h2 {
@@ -33,12 +39,20 @@
     margin-bottom: 10px;
   }
   
-  .pokemon-card h3 {
-    margin: 10px 0 5px;
+  .pokemon-card img {
+    width: 100px; /* Fixed width for images */
+    height: auto;
+    margin: 10px 0;
   }
   
   .pokemon-card p {
     margin: 5px 0;
+    font-size: 0.9rem; /* Slightly smaller font for text */
+    color: #333; /* Dark gray text for readability */
+  }
+  
+  .pokemon-card h3 {
+    margin: 10px 0 5px;
   }
   
   .pokemon-card ul {
@@ -46,9 +60,16 @@
     list-style: none;
     margin: 0;
   }
+  
+  .pokemon-card ul li {
+    font-size: 0.9rem;
+    color: #555; /* Medium gray for stat text */
+  }
+  
   .pokemon-image {
-    width: 100px;
+    width: 100px; /* Set fixed width for images */
     height: 100px;
     margin: 10px 0;
+    object-fit: contain; /* Ensure the image fits nicely within the box */
   }
   
