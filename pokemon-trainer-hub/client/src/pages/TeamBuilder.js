@@ -1,26 +1,21 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 
 const TeamBuilder = () => {
-  const [pokemon, setPokemon] = useState([]); //list of Pokémon fetched from API
-  const [team, setTeam] = useState([]); //user's selected team
-  const [error, setError] = useState(null); //handle API errors
+  const [pokemon, setPokemon] = useState([]);
+  const [team, setTeam] = useState([]);
+  const [teamName, setTeamName] = useState("");
 
-  //fetch Pokémon data on component mount
-  useEffect(() => {
+  // Fetch Pokémon (example data)
+  useState(() => {
     const fetchPokemon = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/pokemon");
-        setPokemon(response.data);
-      } catch (err) {
-        setError("Failed to load Pokémon. Please try again.");
-        console.error("Error fetching Pokémon:", err);
-      }
+      const response = await fetch("http://localhost:5000/api/pokemon");
+      const data = await response.json();
+      setPokemon(data);
     };
     fetchPokemon();
   }, []);
 
-  //add Pokés to team
+  // Add a Pokémon to the team
   const addToTeam = (poke) => {
     if (team.length < 6 && !team.find((member) => member.name === poke.name)) {
       setTeam([...team, poke]);
@@ -31,45 +26,71 @@ const TeamBuilder = () => {
     }
   };
 
-  //remove Pokés from team
-  const removeFromTeam = (poke) => {
-    setTeam(team.filter((member) => member.name !== poke.name));
+  // Save the team to the backend
+  const saveTeam = async () => {
+    if (!teamName) {
+      alert("Please enter a team name.");
+      return;
+    }
+
+    if (team.length === 0) {
+      alert("Your team is empty. Add Pokémon to save.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/teams", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: teamName, pokemon: team }),
+      });
+
+      if (response.ok) {
+        alert("Team saved successfully!");
+        setTeamName("");
+        setTeam([]); // Clear the team after saving
+      } else {
+        alert("Failed to save team.");
+      }
+    } catch (err) {
+      console.error("Error saving team:", err);
+      alert("An error occurred while saving the team.");
+    }
   };
 
   return (
     <div>
       <h1>Build Your Pokémon Team</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-      {/* Available Pokémon */}
       <div>
         <h2>Available Pokémon</h2>
-        {pokemon.map((poke, index) => (
-          <div key={index} style={{ marginBottom: "10px" }}>
-            <button onClick={() => addToTeam(poke)}>
-              Add {poke.name}
+        <div>
+          {pokemon.map((poke, index) => (
+            <button key={index} onClick={() => addToTeam(poke)}>
+              {poke.name}
             </button>
-            <a href={poke.url} target="_blank" rel="noopener noreferrer">
-              View Details
-            </a>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      {/* User's Team */}
       <div>
         <h2>Your Team</h2>
-        {team.map((poke, index) => (
-          <div key={index} style={{ marginBottom: "10px" }}>
-            <p>{poke.name}</p>
-            <button onClick={() => removeFromTeam(poke)}>Remove</button>
-          </div>
-        ))}
-        {team.length === 0 && <p>Your team is empty. Add Pokémon to start!</p>}
+        <input
+          type="text"
+          placeholder="Enter team name"
+          value={teamName}
+          onChange={(e) => setTeamName(e.target.value)}
+        />
+        <ul>
+          {team.map((poke, index) => (
+            <li key={index}>{poke.name}</li>
+          ))}
+        </ul>
+        <button onClick={saveTeam}>Save Team</button>
       </div>
     </div>
   );
 };
 
 export default TeamBuilder;
+
 
