@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./MyTeams.css"; // Ensure you include this CSS file for styling
 
 const MyTeams = () => {
   const [teams, setTeams] = useState([]);
@@ -64,46 +65,48 @@ const MyTeams = () => {
 
   return (
     <div className="my-teams">
-      <h1>My Teams</h1>
-      {teams.map((team) => (
-        <div key={team._id} className="team">
-          {editMode === team._id ? (
-            <div>
-              <input
-                type="text"
-                value={updatedTeam.name}
-                onChange={(e) => handleUpdate("name", e.target.value)}
-                placeholder="Edit team name"
-              />
-              <h3>Edit Pokémon:</h3>
-              {updatedTeam.pokemon.map((poke, index) => (
-                <div key={index}>
-                  <input
-                    type="text"
-                    value={poke.name}
-                    onChange={(e) => handleUpdate("pokemon", e.target.value, index)}
-                    placeholder="Edit Pokémon name"
-                  />
-                </div>
-              ))}
-              <button onClick={() => saveEdit(team._id)}>Save</button>
-              <button onClick={() => setEditMode(null)}>Cancel</button>
-            </div>
-          ) : (
-            <div>
-              <h2>{team.name}</h2>
-              <h3>Pokémon:</h3>
-              <ul>
-                {team.pokemon.map((poke, index) => (
-                  <li key={index}>{poke.name}</li>
+      <div className="content-box">
+        <h1>My Teams</h1>
+        {teams.map((team) => (
+          <div key={team._id} className="team">
+            {editMode === team._id ? (
+              <div>
+                <input
+                  type="text"
+                  value={updatedTeam.name}
+                  onChange={(e) => handleUpdate("name", e.target.value)}
+                  placeholder="Edit team name"
+                />
+                <h3>Edit Pokémon:</h3>
+                {updatedTeam.pokemon.map((poke, index) => (
+                  <div key={index}>
+                    <input
+                      type="text"
+                      value={poke.name}
+                      onChange={(e) => handleUpdate("pokemon", e.target.value, index)}
+                      placeholder="Edit Pokémon name"
+                    />
+                  </div>
                 ))}
-              </ul>
-              <button onClick={() => startEditMode(team)}>Edit</button>
-              <button onClick={() => deleteTeam(team._id)}>Delete</button>
-            </div>
-          )}
-        </div>
-      ))}
+                <button onClick={() => saveEdit(team._id)}>Save</button>
+                <button onClick={() => setEditMode(null)}>Cancel</button>
+              </div>
+            ) : (
+              <div>
+                <h2>{team.name}</h2>
+                <h3>Pokémon:</h3>
+                <ul>
+                  {team.pokemon.map((poke, index) => (
+                    <li key={index}>{poke.name}</li>
+                  ))}
+                </ul>
+                <button onClick={() => startEditMode(team)}>Edit</button>
+                <button onClick={() => deleteTeam(team._id)}>Delete</button>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
