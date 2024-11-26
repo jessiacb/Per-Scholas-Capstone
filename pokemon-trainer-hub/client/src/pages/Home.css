@@ -1,13 +1,24 @@
-@font-face {
-    font-family: "PokemonFont";
-    src: url("../assets/fonts/PokemonHollowNormal-pyPZ.ttf") format("truetype");
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    justify-content: center; /* Center content vertically if needed */
+    height: 100vh; /* Full viewport height */
+    text-align: center;
+    padding: 20px;
   }
   
   .pokemon-title {
-    font-family: "PokemonFont", sans-serif; /* Use your custom font */
-    color: #ffcb05; /* Pokémon yellow */
-    text-shadow: 2px 2px #3b4cca; /* Blue outline for the Pokémon logo effect */
-    font-size: 3rem; /* Adjust size as needed */
-    text-align: center;
+    font-family: "PokemonFont", sans-serif;
+    color: #ffcb05;
+    text-shadow: 2px 2px #3b4cca;
+    margin-bottom: 20px; /* Add space between the header and paragraph */
   }
-    
+  
+  .home-container p {
+    font-size: 1.2rem;
+    color: #333;
+    max-width: 600px; /* Optional: limit the width of the text for better readability */
+    line-height: 1.5; /* Adjust line spacing for readability */
+  }
+  

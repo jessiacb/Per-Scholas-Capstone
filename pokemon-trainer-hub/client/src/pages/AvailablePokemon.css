@@ -1,0 +1,49 @@
+.available-pokemon {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the content horizontally */
+    justify-content: center; /* Center the content vertically */
+    text-align: center;
+    min-height: 100vh; /* Full viewport height */
+    background: linear-gradient(135deg, #f3f4f6, #dce7f9); /* Gentle gradient */
+    padding: 20px;
+  }
+  
+  .pokemon-list {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping of Pokémon cards */
+    justify-content: center; /* Center the cards horizontally */
+    gap: 20px; /* Add spacing between cards */
+  }
+  
+  .pokemon-card {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 250px;
+    text-align: center; /* Center text within the card */
+  }
+  
+  .pokemon-card h2 {
+    font-family: "PokemonFont", sans-serif;
+    color: #ffcb05; /* Pokémon yellow */
+    text-shadow: 1px 1px #3b4cca; /* Pokémon blue shadow */
+    margin-bottom: 10px;
+  }
+  
+  .pokemon-card h3 {
+    margin: 10px 0 5px;
+  }
+  
+  .pokemon-card p {
+    margin: 5px 0;
+  }
+  
+  .pokemon-card ul {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+  }
+  
