@@ -1,0 +1,13 @@
+@font-face {
+    font-family: "PokemonFont";
+    src: url("../assets/fonts/PokemonHollowNormal-pyPZ.ttf") format("truetype");
+  }
+  
+  .pokemon-title {
+    font-family: "PokemonFont", sans-serif; /* Use your custom font */
+    color: #ffcb05; /* Pokémon yellow */
+    text-shadow: 2px 2px #3b4cca; /* Blue outline for the Pokémon logo effect */
+    font-size: 3rem; /* Adjust size as needed */
+    text-align: center;
+  }
+    
