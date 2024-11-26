@@ -2,7 +2,7 @@ const express = require("express");
 const Team = require("../models/Team");
 const router = express.Router();
 
-// Create a team
+//create a team
 router.post("/", async (req, res) => {
   try {
     const newTeam = new Team(req.body);
@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Get all teams
+//get all teams
 router.get("/", async (req, res) => {
   try {
     const teams = await Team.find();
