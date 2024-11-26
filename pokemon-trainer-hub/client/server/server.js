@@ -1,63 +1,54 @@
 const express = require("express");
 const cors = require("cors");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const mongoose = require("mongoose"); // Use mongoose for better debugging and features
 require("dotenv").config();
 
 const app = express();
 
-//middleware
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-//debug middleware
+// Debug Middleware
 app.use((req, res, next) => {
   console.log(`Incoming request: ${req.method} ${req.url}`);
   next();
 });
 
-//MongoDB Connection
-const uri = process.env.MONGO_URI; 
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
-
-async function connectDB() {
+// MongoDB Connection
+const connectDB = async () => {
   try {
-    //connect to MongoDB
-    await client.connect();
-    console.log("Pinged your deployment. Successfully connected to MongoDB!");
-
-    //export the database object for other routes
-    app.locals.db = client.db("PokemonHub"); // Replace "pokemonhub" with your database name
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 10000, // 10-second timeout for initial connection
+    });
+    console.log("Connected to MongoDB successfully");
   } catch (err) {
-    console.error("MongoDB connection error:", err);
-    process.exit(1); //exit the process on failure
+    console.error("MongoDB connection error:", err.message);
+    process.exit(1); // Exit the process if the connection fails
   }
-}
+};
 
-//initialize connection
+// Initialize the Database Connection
 connectDB();
 
-//test Route
+// Test Route
 app.get("/", (req, res) => {
   res.send("Server is running and connected to MongoDB!");
 });
 
-//Poké Routes
+// Poké Routes
 app.use("/api/pokemon", require("./routes/pokemonRoutes"));
 
-//team Routes
+// Team Routes
 app.use("/api/teams", require("./routes/teamRoutes"));
 
-//handle Undefined Routes
+// Handle Undefined Routes
 app.use((req, res) => {
   res.status(404).json({ error: "Route not found" });
 });
 
-//start Server
+// Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
