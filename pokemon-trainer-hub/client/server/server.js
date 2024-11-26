@@ -5,12 +5,18 @@ require("dotenv").config();
 
 const app = express();
 
-// Middleware
+//middleware
 app.use(cors());
 app.use(express.json());
 
-// MongoDB Connection
-const uri = process.env.MONGO_URI; // Ensure this matches the URI in your .env file
+//debug middleware
+app.use((req, res, next) => {
+  console.log(`Incoming request: ${req.method} ${req.url}`);
+  next();
+});
+
+//MongoDB Connection
+const uri = process.env.MONGO_URI; 
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -21,29 +27,37 @@ const client = new MongoClient(uri, {
 
 async function connectDB() {
   try {
-    // Connect to MongoDB
+    //connect to MongoDB
     await client.connect();
     console.log("Pinged your deployment. Successfully connected to MongoDB!");
 
-    // Optional: Export the database object to use it in other routes
-    app.locals.db = client.db("pokemonhub"); // Replace "pokemonhub" with your database name
+    //export the database object for other routes
+    app.locals.db = client.db("PokemonHub"); // Replace "pokemonhub" with your database name
   } catch (err) {
     console.error("MongoDB connection error:", err);
+    process.exit(1); //exit the process on failure
   }
 }
 
-// Initialize connection
+//initialize connection
 connectDB();
 
-// Test Route
+//test Route
 app.get("/", (req, res) => {
   res.send("Server is running and connected to MongoDB!");
 });
 
-// Routes (you can continue to add your API routes here)
+//Poké Routes
 app.use("/api/pokemon", require("./routes/pokemonRoutes"));
+
+//team Routes
 app.use("/api/teams", require("./routes/teamRoutes"));
 
-// Server
+//handle Undefined Routes
+app.use((req, res) => {
+  res.status(404).json({ error: "Route not found" });
+});
+
+//start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

@@ -2,7 +2,7 @@ const express = require("express");
 const axios = require("axios");
 const router = express.Router();
 
-//get Pokémon from API
+// GET Pokémon
 router.get("/", async (req, res) => {
   try {
     const response = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=151");
@@ -13,3 +13,4 @@ router.get("/", async (req, res) => {
 });
 
 module.exports = router;
+
